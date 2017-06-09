@@ -140,7 +140,7 @@ func buildNewKey(origKey string) string {
 // sign and returns the two strings. If no equal sign is
 // found, the ErrInvalidParam error is returned.
 func splitKeyAndValue(param string) (string, string, error) {
-	li := strings.LastIndex(param, "=")
+	li := strings.Index(param, "=")
 	if li == -1 {
 		return "", "", ErrInvalidParam
 	}
