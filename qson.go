@@ -60,7 +60,7 @@ func ToJSON(query string) ([]byte, error) {
 	for _, str := range params {
 		tempMap, err := queryToMap(str)
 		if err != nil {
-			return nil, err
+			continue
 		}
 		builder = merge(builder, tempMap)
 	}
@@ -94,8 +94,7 @@ func queryToMap(param string) (map[string]interface{}, error) {
 			// quotes and processing it as a string
 			err = json.Unmarshal([]byte("\""+rawValue+"\""), &value)
 			if err != nil {
-				// If we can't decode as a string we return the err
-				return nil, err
+				value = rawValue
 			}
 		}
 		return map[string]interface{}{

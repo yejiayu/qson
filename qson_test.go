@@ -3,6 +3,8 @@ package qson
 import (
 	"fmt"
 	"testing"
+
+	"github.com/kr/pretty"
 )
 
 func ExampleUnmarshal() {
@@ -133,4 +135,14 @@ func TestSplitKeyAndValue(t *testing.T) {
 	if eValue != aValue {
 		t.Errorf("Values do not match. Expected: %s Actual: %s", eValue, aValue)
 	}
+}
+
+func TestSkip(t *testing.T) {
+	var m map[string]interface{}
+	err := Unmarshal(&m, "id=https%3A%2F%2Fh5.ele.me%2Finvitehongbao%2F%3Frefer_code%3D1d24192c72e18678dd169aa1a000715b%26sns_type%3D0%26from%3Dsinglemessage&sdkVer=1.2.1-rc0&appVer=0.0.0&appName=h5.ele.me&source=web-sw&ssid=za1e8gejdx194rndy44ebgcenn7t9i5s_2017-07-03&type=error&network=wifi&d%5Bline%5D=1%3A12&d%5Bfile%5D=&d%5Berror%5D=Uncaught%20ReferenceError%3A%20WeixinJSBridge%20is%20not%20defined&d%5Bstack%5D=ReferenceError%3A%20WeixinJSBridge%20is%20not%20defined%0A%20%20%20%20at%20%3Canonymous%3E%3A1%3A12&time=1499066012372")
+	if err != nil {
+		t.Error(err)
+	}
+
+	pretty.Println(m)
 }
